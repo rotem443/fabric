@@ -14,8 +14,12 @@ class Remote(Runner):
 
     .. versionadded:: 2.0
     """
-
-    def start(self, command, shell, env):
+    
+    def __init__(self, context, using_pty=False):
+        super().__init__(context)
+        self.using_pty = using_pty
+    
+    def start(self, command, env):
         self.channel = self.context.create_session()
         if self.using_pty:
             rows, cols = pty_size()
